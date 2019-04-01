@@ -12,20 +12,22 @@ while len(text) > 61:
 segments.append(text)
 
 max_width = max([len(s) for s in segments])
-lines = ["| {0:{1}} |".format(s, max_width) for s in segments]
-text_half = ["", "+-" + "-"*max_width + "-+"] + lines + ["+-" + "-"*max_width + "-+"]
+lines = ["\u2502 {0:{1}} \u2502".format(s, max_width) for s in segments]
+text_half = ["", "\u256D\u2500" + "\u2500"*max_width + "\u2500\u256E"] + lines + ["\u2570\u2500" + "\u2500"*max_width + "\u2500\u256F"]
 if len(text_half) > 5:
 	text_half.pop(0)
 horse_half = [
 	"     ./|,,/|   ",
 	"    <   o o)   ",
-	"   <\ (    | --",
+	"   <\ (    | \u2500\u2500",
 	"  <\\\  |\  |   ",
 	" <\\\\\  |(__)   ",
 	"<\\\\\\\  |       "
 ]
 
 for i in range(max(len(horse_half), len(text_half))):
+	if horse_half[i][-1] == '\u2500' and text_half[i][0] == '\u2502':
+		text_half[i] = '\u2524' + text_half[i][1:]
 	if i < len(horse_half):
 		sys.stdout.write(horse_half[i])
 	else:
