@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+import sys
+
+text = sys.stdin.readline().strip()
+segments = []
+while len(text) > 61:
+	ptr = 61
+	while ptr > 0 and text[ptr] != " ":
+		ptr -= 1
+	segments.append(text[:ptr])
+	text = text[ptr:].lstrip()
+segments.append(text)
+
+max_width = max([len(s) for s in segments])
+lines = ["| {0:{1}} |".format(s, max_width) for s in segments]
+text_half = ["", "+-" + "-"*max_width + "-+"] + lines + ["+-" + "-"*max_width + "-+"]
+if len(text_half) > 5:
+	text_half.pop(0)
+horse_half = [
+	"     ./|,,/|   ",
+	"    <   o o)   ",
+	"   <\ (    | --",
+	"  <\\\  |\  |   ",
+	" <\\\\\  |(__)   ",
+	"<\\\\\\\  |       "
+]
+
+for i in range(max(len(horse_half), len(text_half))):
+	if i < len(horse_half):
+		sys.stdout.write(horse_half[i])
+	else:
+		sys.stdout.write(" " * len(horse_half[0]))
+	if i < len(text_half):
+		sys.stdout.write(text_half[i])
+	sys.stdout.write("\n")
+
