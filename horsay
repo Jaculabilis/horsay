@@ -26,7 +26,7 @@ horse_half = [
 ]
 
 for i in range(max(len(horse_half), len(text_half))):
-	if horse_half[i][-1] == '\u2500' and text_half[i][0] == '\u2502':
+	if i < min(len(horse_half), len(text_half)) and horse_half[i][-1] == '\u2500' and text_half[i][0] == '\u2502':
 		text_half[i] = '\u2524' + text_half[i][1:]
 	if i < len(horse_half):
 		sys.stdout.write(horse_half[i])
